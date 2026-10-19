@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>상품 상세 | 오늘장 마켓</title>
+<meta name="user_id" content="">
+<script src="dz-head.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="app.js"></script>
+</head>
+<body>
+<header id="hdr"></header>
+<main>
+  <div class="detail" id="d"></div>
+  <section class="sec"><h2 class="sec-t">함께 보면 좋은 상품</h2><div class="grid" id="rel"></div></section>
+</main>
+<footer>주식회사 오늘장 (데모) · <a href="privacy.html">개인정보처리방침</a> · CRM 솔루션 검토용 데모 사이트</footer>
+<script>
+function page(){
+  var p=PRODUCTS.find(function(x){return x.id===qs("id")})||PRODUCTS[0];
+  document.title=p.name+" | 오늘장 마켓";
+  document.getElementById("d").innerHTML='<div class="img" style="--img:'+p.img+'">'+p.emoji+'</div><div><div class="note">'+p.cat+' · 상품번호 '+p.id+'</div><h1>'+p.name+'</h1><div class="price">'+won(p.price)+'</div><p class="note">산지 직송 · 새벽 배송 · 무료 반품</p><div class="row"><label>수량 <input class="qty" type="number" id="q" value="1" min="1"></label></div><div class="row"><button class="btn" id="add">장바구니 담기</button><button class="btn pri" id="buy">바로 구매</button></div></div>';
+  document.getElementById("rel").innerHTML=PRODUCTS.filter(function(x){return x.cat===p.cat&&x.id!==p.id}).concat(PRODUCTS.filter(function(x){return x.cat!==p.cat})).slice(0,4).map(card).join("");
+  document.getElementById("add").onclick=function(){addToCart(p.id,+document.getElementById("q").value||1);alert("장바구니에 담았습니다.");};
+  document.getElementById("buy").onclick=function(){addToCart(p.id,+document.getElementById("q").value||1);location.href="checkout.html";};
+}
+</script>
+</body>
+</html>

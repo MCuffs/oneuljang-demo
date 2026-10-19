@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>주문 완료 | 오늘장 마켓</title>
+<meta name="user_id" content="">
+<script src="dz-head.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="app.js"></script>
+</head>
+<body>
+<header id="hdr"></header>
+<main>
+  <div class="ok" id="ok"></div>
+  <a class="btn" href="./">계속 쇼핑하기</a>
+</main>
+<footer>주식회사 오늘장 (데모) · <a href="privacy.html">개인정보처리방침</a></footer>
+<script>
+function page(){
+  var o=(store("orders")||[]).find(function(x){return x.id===qs("order")});
+  document.getElementById("ok").innerHTML=o?'<h1>주문이 완료되었습니다</h1><p>주문번호 <b>'+o.id+'</b> · 결제 금액 <b>'+won(o.sum)+'</b></p><p class="note">'+o.items.map(function(i){var p=PRODUCTS.find(function(x){return x.id===i.id});return p.name+" "+i.qty+"개"}).join(", ")+'</p>':'<h1>주문 정보를 찾을 수 없습니다</h1>';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>로그인 | 오늘장 마켓</title>
+<meta name="user_id" content="">
+<script src="dz-head.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="app.js"></script>
+</head>
+<body>
+<header id="hdr"></header>
+<main>
+  <h1 id="h">로그인</h1>
+  <div id="box"></div>
+</main>
+<footer>주식회사 오늘장 (데모) · <a href="privacy.html">개인정보처리방침</a></footer>
+<script>
+function page(){
+  var u=user(),b=document.getElementById("box");
+  if(u){document.getElementById("h").textContent="로그아웃";b.innerHTML='<p>'+u.name+'님(회원번호 '+u.id+')으로 로그인되어 있습니다.</p><button class="btn" id="out">로그아웃</button>';document.getElementById("out").onclick=function(){store("user",null);localStorage.removeItem("user");location.href="./";};return;}
+  b.innerHTML='<form class="f" id="f"><label>회원 ID<input id="id" required placeholder="예: demo_user_01"></label><label>이름<input id="n" required placeholder="이름"></label><label>휴대폰<input id="ph" placeholder="010-0000-0000"></label><p class="note">데모용 간이 로그인입니다. 비밀번호 없이 회원 ID만 기록하며, 로그인 후 모든 페이지의 meta[name=user_id]에 회원 ID가 남습니다.</p><button class="btn pri" type="submit">로그인</button></form>';
+  document.getElementById("f").onsubmit=function(e){e.preventDefault();store("user",{id:document.getElementById("id").value.trim(),name:document.getElementById("n").value.trim(),phone:document.getElementById("ph").value.trim()});location.href="./";};
+}
+</script>
+</body>
+</html>

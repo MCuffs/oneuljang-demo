@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>장바구니 | 오늘장 마켓</title>
+<meta name="user_id" content="">
+<script src="dz-head.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="app.js"></script>
+</head>
+<body>
+<header id="hdr"></header>
+<main>
+  <h1>장바구니</h1>
+  <div id="c"></div>
+</main>
+<footer>주식회사 오늘장 (데모) · <a href="privacy.html">개인정보처리방침</a></footer>
+<script>
+function page(){
+  var c=cart();
+  if(!c.length){document.getElementById("c").innerHTML='<div class="empty">장바구니가 비어 있습니다. <a href="./">상품 보러 가기</a></div>';return;}
+  var sum=0,rows=c.map(function(i){var p=PRODUCTS.find(function(x){return x.id===i.id});sum+=p.price*i.qty;return '<tr><td><a href="product.html?id='+p.id+'">'+p.name+'</a></td><td>'+i.qty+'개</td><td>'+won(p.price*i.qty)+'</td><td><button class="btn sm" data-rm="'+p.id+'">삭제</button></td></tr>'}).join("");
+  document.getElementById("c").innerHTML='<table><tr><th>상품</th><th>수량</th><th>금액</th><th></th></tr>'+rows+'</table><div class="total"><span>합계</span><span>'+won(sum)+'</span></div><a class="btn pri" href="checkout.html">주문하기</a>';
+  document.querySelectorAll("[data-rm]").forEach(function(b){b.onclick=function(){store("cart",cart().filter(function(i){return i.id!==b.getAttribute("data-rm")}));header();page();}});
+}
+</script>
+</body>
+</html>
